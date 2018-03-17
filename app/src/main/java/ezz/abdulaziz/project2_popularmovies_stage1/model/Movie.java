@@ -3,122 +3,163 @@ package ezz.abdulaziz.project2_popularmovies_stage1.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /**
  * Created by EZZ on 2/27/2018.
  */
 
-public class Movie implements Parcelable
-{
+public class Movie implements Parcelable {
+    private long id;
+    private Integer voteCount;
+    private Double voteAverage;
+    private Double popularity;
     private String title;
-    private String moviePoster;
-    private String plotSynopsis;
-    private String userRating;
-    private Date releaseDate;
+    private String overView;
+    private String posterPath;
+    private String backdropPath;
+    private String releaseDate;
 
-    public Movie()
-    {
-
+    public Movie() {
     }
 
-    public Movie(String title, String moviePoster, String plotSynopsis, String userRating, Date releaseDate)
-    {
+    public Movie(long id, Integer voteCount, Double voteAverage, Double popularity, String title, String overView, String posterPath, String backdropPath, String releaseDate) {
+        this.id = id;
+        this.voteCount = voteCount;
+        this.voteAverage = voteAverage;
+        this.popularity = popularity;
         this.title = title;
-        this.moviePoster = moviePoster;
-        this.plotSynopsis = plotSynopsis;
-        this.userRating = userRating;
+        this.overView = overView;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
         this.releaseDate = releaseDate;
     }
 
-    public String getTitle()
-    {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public Double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(Double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
+    }
+
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getMoviePoster()
-    {
-        return moviePoster;
+    public String getOverView() {
+        return overView;
     }
 
-    public void setMoviePoster(String moviePoster)
-    {
-        this.moviePoster = moviePoster;
+    public void setOverView(String overView) {
+        this.overView = overView;
     }
 
-    public String getPlotSynopsis()
-    {
-        return plotSynopsis;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setPlotSynopsis(String plotSynopsis)
-    {
-        this.plotSynopsis = plotSynopsis;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
-    public String getUserRating()
-    {
-        return userRating;
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
-    public void setUserRating(String userRating)
-    {
-        this.userRating = userRating;
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
-    public Date getReleaseDate()
-    {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate)
-    {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    protected Movie(Parcel in)
-    {
+
+    protected Movie(Parcel in) {
+        id = in.readLong();
+        voteCount = in.readByte() == 0x00 ? null : in.readInt();
+        voteAverage = in.readByte() == 0x00 ? null : in.readDouble();
+        popularity = in.readByte() == 0x00 ? null : in.readDouble();
         title = in.readString();
-        moviePoster = in.readString();
-        plotSynopsis = in.readString();
-        userRating = in.readString();
-        long tmpReleaseDate = in.readLong();
-        releaseDate = tmpReleaseDate != -1 ? new Date(tmpReleaseDate) : null;
+        overView = in.readString();
+        posterPath = in.readString();
+        backdropPath = in.readString();
+        releaseDate = in.readString();
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        if (voteCount == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(voteCount);
+        }
+        if (voteAverage == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeDouble(voteAverage);
+        }
+        if (popularity == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeDouble(popularity);
+        }
         dest.writeString(title);
-        dest.writeString(moviePoster);
-        dest.writeString(plotSynopsis);
-        dest.writeString(userRating);
-        dest.writeLong(releaseDate != null ? releaseDate.getTime() : -1L);
+        dest.writeString(overView);
+        dest.writeString(posterPath);
+        dest.writeString(backdropPath);
+        dest.writeString(releaseDate);
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>()
-    {
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
         @Override
-        public Movie createFromParcel(Parcel in)
-        {
+        public Movie createFromParcel(Parcel in) {
             return new Movie(in);
         }
 
         @Override
-        public Movie[] newArray(int size)
-        {
+        public Movie[] newArray(int size) {
             return new Movie[size];
         }
     };
