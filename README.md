@@ -36,6 +36,11 @@ Through this project, you will:
 - Launch these Activities via Intent.
 - Fetch data from themovieDB API
 
+## Libraries
+- ButterKnife
+- Picasso
+- OkHttp
+
 ## Important 
-* I've removed my api key from code, so i can push it in public GitHub, So you should replace it with your api key to run app.
-  * In **NetworkUtils** class -> **String API_KEY = "####################";**
+* I've removed my api key from code, so i can push it in public GitHub, So you should replace it with your api key.
+  * replace in **gradle.properties** file **API_KEY="YOUR_API_KEY_HERE"**
