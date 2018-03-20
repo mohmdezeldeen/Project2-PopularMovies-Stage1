@@ -19,7 +19,7 @@ public class JSONUtils {
         List<Movie> movieList = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray resultsArray = jsonObject.optJSONArray("results");
+            JSONArray resultsArray = jsonObject.getJSONArray("results");
             for (int i = 0; i < resultsArray.length(); i++) {
                 Movie movie = new Movie();
                 JSONObject movieObject = resultsArray.optJSONObject(i);

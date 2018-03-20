@@ -26,17 +26,13 @@ public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.ivBackPoster)
     ImageView mBackdropPoster;
-    @BindView(R.id.tvMovieTitleLabel)
-    TextView mMovieTitleLabel;
-    @BindView(R.id.tvMovieTitle)
-    TextView mMovieTitle;
+    @BindView(R.id.ivMoviePoster)
+    ImageView mMoviePoster;
     @BindView(R.id.tvOverViewLabel)
     TextView mOverViewLabel;
     @BindView(R.id.tvOverView)
     TextView mOverView;
-    @BindView(R.id.tvVoteAverageLabel)
-    TextView mVoteAverageLabel;
-    @BindView(R.id.tvVoteAverage)
+    @BindView(R.id.tvRating)
     TextView mVoteAverage;
     @BindView(R.id.tvVoteCountLabel)
     TextView mVoteCountLabel;
@@ -71,6 +67,8 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(movie);
         Picasso.with(this).load(NetworkUtils.POSTER_URL + NetworkUtils.PosterSize.w500 + movie
                 .getBackdropPath()).into(mBackdropPoster);
+        Picasso.with(this).load(NetworkUtils.POSTER_URL + NetworkUtils.PosterSize.w185 + movie
+                .getPosterPath()).into(mMoviePoster);
 
         setTitle(movie.getTitle());
     }
@@ -81,7 +79,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Movie movie) {
-        mMovieTitle.setText(movie.getTitle());
         mVoteAverage.setText(movie.getVoteAverage().toString());
         mRBVoteAverage.setRating(Float.parseFloat(movie.getVoteAverage().toString()));
         mVoteCount.setText(movie.getVoteCount().toString());
@@ -90,7 +87,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
         if (movie.getVoteAverage().toString().isEmpty() || movie.getVoteAverage() == null) {
-            mVoteAverageLabel.setVisibility(View.GONE);
             mVoteAverage.setVisibility(View.GONE);
         } else {
             mVoteAverage.setText(movie.getVoteAverage().toString());

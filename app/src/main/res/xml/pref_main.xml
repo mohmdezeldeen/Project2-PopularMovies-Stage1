@@ -6,6 +6,6 @@
         android:summary="%s"
         android:entries="@array/sort_list_entries"
         android:entryValues="@array/sort_list_entries_values"
-        android:defaultValue="popularity.desc" />
+        android:defaultValue="popular?" />
 
 </PreferenceScreen>

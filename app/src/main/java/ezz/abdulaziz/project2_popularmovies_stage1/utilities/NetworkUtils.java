@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import ezz.abdulaziz.project2_popularmovies_stage1.BuildConfig;
+
 /**
  * Created by EZZ on 2/27/2018.
  */
@@ -22,14 +24,14 @@ import java.util.concurrent.TimeUnit;
 public class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
-    private final static String BASIC_URL = "https://api.themoviedb.org/3/discover/movie?";
+
+    private final static String BASIC_URL = "https://api.themoviedb.org/3/movie/";
 
     private final static String API_KEY_PARAM = "api_key";
-    // I replaced API Key with #s to push to GitHub
-    private final static String API_KEY = "####################";
 
-    private final static String SORT_PARAM = "sort_by";
-    public final static String MOST_POPULAR_SORT = "popularity.desc";
+    private final static String API_KEY = BuildConfig.API_KEY;
+
+    public final static String MOST_POPULAR_SORT = "popular?";
 
     public static final String POSTER_URL = "http://image.tmdb.org/t/p/";
 
@@ -43,8 +45,7 @@ public class NetworkUtils {
     }
 
     public static URL buildUrl(String paramSortType) {
-        Uri builtUri = Uri.parse(BASIC_URL).buildUpon()
-                .appendQueryParameter(SORT_PARAM, paramSortType)
+        Uri builtUri = Uri.parse(BASIC_URL + paramSortType).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM, API_KEY)
                 .build();
 
